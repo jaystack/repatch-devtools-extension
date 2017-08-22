@@ -1,5 +1,5 @@
 import diff = require('deep-diff');
-import { Change } from '../../types';
+import { Change, Patch, Diff } from '../../types';
 
 /* const diff = {
   name: symbol,
@@ -9,9 +9,9 @@ import { Change } from '../../types';
   }
 } */
 
-const getType = patch => patch.find(change => change.path.length > 0) ? "object" : typeof patch[0].rhs;
+const getType = (patch: Patch) => patch.find(change => change.path.length > 0) ? "object" : typeof patch[0].rhs;
 
-const getInitialStateByType = type => {
+const getInitialDiffByType = (type: string): Diff => {
   /* switch (type) {
     case 'object': {}
     case 'string': '',
@@ -19,6 +19,12 @@ const getInitialStateByType = type => {
   } */
 }
 
-export default function() {
+const okosFüggvény = (diff: Diff, change: Change): Diff => {
+  // ez lesz itt a lényeg
+}
+
+export default function getDiff(patch: Patch = []): Diff {
   const diffMap = new Map<Symbol, Change>();
+  const initialDiff = getInitialDiffByType(getType(patch))
+  return patch.reduce(okosFüggvény, initialDiff)
 }
