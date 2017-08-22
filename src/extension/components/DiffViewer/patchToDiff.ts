@@ -9,7 +9,8 @@ import { Change, Patch, Diff } from '../../types';
   }
 } */
 
-const getType = (patch: Patch) => patch.find(change => change.path.length > 0) ? "object" : typeof patch[0].rhs;
+const getType = (patch: Patch): string =>
+  patch.find(change => change.path.length > 0) ? 'object' : typeof patch[0].rhs;
 
 const getInitialDiffByType = (type: string): Diff => {
   /* switch (type) {
@@ -17,14 +18,14 @@ const getInitialDiffByType = (type: string): Diff => {
     case 'string': '',
     ...
   } */
-}
+};
 
 const okosFüggvény = (diff: Diff, change: Change): Diff => {
   // ez lesz itt a lényeg
-}
+};
 
 export default function getDiff(patch: Patch = []): Diff {
   const diffMap = new Map<Symbol, Change>();
-  const initialDiff = getInitialDiffByType(getType(patch))
-  return patch.reduce(okosFüggvény, initialDiff)
+  const initialDiff = getInitialDiffByType(getType(patch));
+  return patch.reduce(okosFüggvény, initialDiff);
 }
