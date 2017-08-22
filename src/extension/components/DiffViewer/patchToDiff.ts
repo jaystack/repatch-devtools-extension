@@ -1,6 +1,8 @@
 import diff = require('deep-diff');
 import { Change, Patch, Diff } from '../../types';
 
+type DiffMap = Map<Symbol, Change>;
+
 /* const diff = {
   name: symbol,
   number: symbol,
@@ -20,12 +22,12 @@ const getInitialDiffByType = (type: string): Diff => {
   } */
 };
 
-const okosFüggvény = (diff: Diff, change: Change): Diff => {
+const diffBuilder = (diffmap: DiffMap) => (diff: Diff, change: Change): Diff => {
   // ez lesz itt a lényeg
 };
 
 export default function getDiff(patch: Patch = []): Diff {
-  const diffMap = new Map<Symbol, Change>();
+  const diffMap: DiffMap = new Map();
   const initialDiff = getInitialDiffByType(getType(patch));
-  return patch.reduce(okosFüggvény, initialDiff);
+  return patch.reduce(diffBuilder(diffMap), initialDiff);
 }
