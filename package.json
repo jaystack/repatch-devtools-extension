@@ -1,0 +1,32 @@
+{
+  "name": "repatch-devtools-extension",
+  "version": "0.0.1",
+  "description": "Chrome extension for repatch-devtools",
+  "main": "lib/extension/index.js",
+  "typings": "lib/extension/index",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaystack/repatch-devtools-extension.git"
+  },
+  "keywords": [
+    "repatch",
+    "devtool",
+    "extension"
+  ],
+  "author": "JayStack",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jaystack/repatch-devtools-extension/issues"
+  },
+  "homepage": "https://github.com/jaystack/repatch-devtools-extension#readme",
+  "devDependencies": {
+    "@types/deep-diff": "0.0.31",
+    "typescript": "^2.4.2"
+  },
+  "dependencies": {
+    "deep-diff": "^0.3.8"
+  }
+}
