@@ -1,0 +1,22 @@
+{
+  "manifest_version": 2,
+
+  "name": "Repatch Devtools",
+  "description": "Devtools to debugging repatch applications",
+  "version": "1.0",
+  "background": {
+    "persistent": false,
+    "scripts": [ "static/js/background.js" ]
+  },
+  "browser_action": {
+    "default_icon": "static/img/repatch.avatar.png",
+    "default_title": "Repatch devtools"
+  },
+  "permissions": [ "activeTab" ],
+  "devtools_page": "devtools.html",
+  "icons": {
+    "16": "static/img/repatch.avatar.png",
+    "48": "static/img/repatch.avatar.png",
+    "128": "static/img/repatch.avatar.png"
+  }
+}
