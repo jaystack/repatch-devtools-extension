@@ -1,73 +1,52 @@
-import {Change, Patch, Diff} from '../../types';
+import { DeepDiffChange, Change, Patch, Diff } from '../../types';
 
 type DiffMap = Map<Symbol, Change>;
 
-/* const diff = {
-  name: symbol,
-  number: symbol,
-  details: {
-    with: symbol
-  }
-} */
-
-const getType = (patch: Patch): string =>
-    patch.find(change => !!change.path) ? 'object' : typeof patch[0].rhs;
+const getType = (patch: Patch): string => (patch.find(change => !!change.path) ? 'object' : typeof patch[0].rhs);
 
 const getInitialDiffByType = (type: string): Diff => {
-    // console.log('<! type>', type);
-    switch (type) {
-        case 'object':
-            return {};
-        case 'string':
-            return '';
-        case 'number':
-            return 0;
-        default:
-            return {}
-    }
+  switch (type) {
+    case 'object':
+      return {};
+    case 'string':
+      return '';
+    case 'number':
+      return 0;
+    default:
+      return {};
+  }
+};
+
+const mapDeepDiffChangeToChange = (changes: DeepDiffChange[]): Change[] => {
+  return changes.map(change => {
+    return change.kind === 'A'
+      ? {
+          kind: change.item.kind,
+          path: [ ...(change.path || []), change.index.toString() ],
+          rhs: change.item.rhs,
+          ...change.item.lhs ? { lhs: change.item.lhs } : {}
+        }
+      : { ...change } as Change;
+  });
 };
 
 const diffBuilder = (diffmap: DiffMap) => (diff: Diff, change: Change): Diff => {
-    const symbol = Symbol();
+  const symbol = Symbol();
 
-    diffmap.set(symbol, change);
-    if (!change.path) return symbol;
+  diffmap.set(symbol, change);
+  if (!change.path) return symbol;
 
-    // const delta = change.path.reduce((previousValue, currentValue, currentIndex, array) => {
-    //     // console.log('change', change);
-    //     // console.log('array', array);
-    //
-    //     if (currentIndex+1 === change.path.length) {
-    //         if (change.kind === "E") {
-    //             previousValue[currentValue] = {oldValue: change.lhs, newValue: change.rhs};
-    //         } else if (change.kind === "A") {
-    //             if (change.item.kind === "N") {
-    //                 previousValue[currentValue] = {newValue: change.item.rhs};
-    //             }
-    //             else if (change.item.kind === "E") {
-    //                 previousValue[currentValue] = {oldValue: change.item.lhs, newValue: change.rhs};
-    //             }
-    //         }
-    //     }
-    //
-    //
-    //     return previousValue;
-    // }, {});
+  change.path.reduce((endpoint, prop, i, path) => {
+    endpoint[prop] = i === path.length - 1 ? symbol : endpoint[prop] || {};
+    return endpoint[prop];
+  }, diff);
 
-    const delta = createDelta(change.path, symbol);
-    
-    console.log(delta);
-    return {...diff, ...delta};
+  return diff;
 };
 
-const createDelta = (path, symbol) =>
-    path.reduce((delta, prop, i, path) => {
-        path.slice(0, i).reduce((acc, p) => acc[p], delta)[prop] = i === path.length - 1 ? symbol : {};
-        return delta
-    }, {});
-
-export default function getDiff(patch: Patch = []): Diff {
-    const diffMap: DiffMap = new Map();
-    const initialDiff = getInitialDiffByType(getType(patch));
-    return patch.reduce(diffBuilder(diffMap), initialDiff);
+export default function getDiff(originalPatch: Patch = []): Diff {
+  const patch = mapDeepDiffChangeToChange(originalPatch);
+  const diffMap: DiffMap = new Map();
+  const initialDiff = getInitialDiffByType(getType(patch));
+  return { diff: patch.reduce(diffBuilder(diffMap), initialDiff), map: diffMap };
 }

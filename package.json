@@ -17,7 +17,11 @@
     "type": "git",
     "url": "git+https://github.com/jaystack/repatch-devtools-extension.git"
   },
-  "keywords": [ "repatch", "devtool", "extension" ],
+  "keywords": [
+    "repatch",
+    "devtool",
+    "extension"
+  ],
   "author": "JayStack",
   "license": "MIT",
   "bugs": {
@@ -26,6 +30,7 @@
   "homepage": "https://github.com/jaystack/repatch-devtools-extension#readme",
   "devDependencies": {
     "@types/deep-diff": "0.0.31",
+    "@types/node": "^8.0.24",
     "typescript": "^2.4.2"
   },
   "dependencies": {
