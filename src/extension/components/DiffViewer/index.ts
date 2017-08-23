@@ -1,6 +1,6 @@
 import diff = require('deep-diff');
 const { lhs, rhs } = require('../../../../static/mocks/data');
-import getDiff from './patchToDiff';
+import getDiff from './getDiff';
 
 const patch = diff.diff(lhs, rhs);
 const result = getDiff(patch);
