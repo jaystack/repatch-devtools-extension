@@ -30,7 +30,9 @@
   "homepage": "https://github.com/jaystack/repatch-devtools-extension#readme",
   "devDependencies": {
     "@types/deep-diff": "0.0.31",
+    "@types/mocha": "^2.2.42",
     "@types/node": "^8.0.24",
+    "mocha": "^3.5.0",
     "typescript": "^2.4.2"
   },
   "dependencies": {
