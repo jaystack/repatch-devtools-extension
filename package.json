@@ -5,12 +5,12 @@
   "main": "lib/extension/index.js",
   "typings": "lib/extension/index",
   "scripts": {
-    "build": "rm -rf lib && node_modules/.bin/tsc -p src/extension --outDir lib/extension",
-    "build:w": "node_modules/.bin/tsc -w -p src/extension --outDir lib/extension",
-    "build-tests": "rm -rf lib && node_modules/.bin/tsc -p src/test --outDir lib",
-    "build-tests:w": "node_modules/.bin/tsc -w -p src/test --outDir lib",
+    "build": "rm -rf lib && tsc -p src/extension --outDir lib/extension",
+    "build:w": "tsc -w -p src/extension --outDir lib/extension",
+    "build-tests": "rm -rf lib && tsc -p src/test --outDir lib",
+    "build-tests:w": "tsc -w -p src/test --outDir lib",
     "pretest": "npm run build-tests",
-    "test": "node_modules/.bin/mocha lib/test/**/*.spec.js -c",
+    "test": "mocha lib/test/**/*.spec.js -c",
     "start": "node ."
   },
   "repository": {
