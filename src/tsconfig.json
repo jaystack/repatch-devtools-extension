@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "jsx": "react",
     "target": "es2017",
     "module": "commonjs",
     "moduleResolution": "node",
@@ -7,5 +8,5 @@
     "allowJs": true,
     "allowSyntheticDefaultImports": true
   },
-  "exclude": [ "node_modules", "lib", "src/test" ]
+  "exclude": [ "node_modules", "lib" ]
 }

@@ -17,3 +17,5 @@ export interface Change {
 export type Patch = Change[];
 
 export type Diff = any;
+
+export type DiffMap = Map<Symbol, Change>;

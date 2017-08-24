@@ -2,26 +2,20 @@
   "name": "repatch-devtools-extension",
   "version": "0.0.1",
   "description": "Chrome extension for repatch-devtools",
-  "main": "lib/extension/index.js",
-  "typings": "lib/extension/index",
+  "main": "lib/index",
+  "typings": "lib/index",
   "scripts": {
-    "build": "rm -rf lib && tsc -p src/extension --outDir lib/extension",
-    "build:w": "tsc -w -p src/extension --outDir lib/extension",
-    "build-tests": "rm -rf lib && tsc -p src/test --outDir lib",
-    "build-tests:w": "tsc -w -p src/test --outDir lib",
-    "pretest": "npm run build-tests",
-    "test": "mocha lib/test/**/*.spec.js -c",
+    "build": "rimraf lib && tsc -p src --outDir lib",
+    "build:w": "tsc -p src --outDir lib -w",
+    "pretest": "npm run build",
+    "test": "mocha lib/**/*.spec.js -c",
     "start": "node ."
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/jaystack/repatch-devtools-extension.git"
   },
-  "keywords": [
-    "repatch",
-    "devtool",
-    "extension"
-  ],
+  "keywords": [ "repatch", "devtool", "extension" ],
   "author": "JayStack",
   "license": "MIT",
   "bugs": {
@@ -32,10 +26,15 @@
     "@types/deep-diff": "0.0.31",
     "@types/mocha": "^2.2.42",
     "@types/node": "^8.0.24",
+    "@types/react": "^16.0.5",
+    "@types/react-dom": "^15.5.4",
     "mocha": "^3.5.0",
+    "rimraf": "^2.6.1",
     "typescript": "^2.4.2"
   },
   "dependencies": {
-    "deep-diff": "^0.3.8"
+    "deep-diff": "^0.3.8",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1"
   }
 }

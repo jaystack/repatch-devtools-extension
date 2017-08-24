@@ -1,6 +1,4 @@
-import { DeepDiffChange, Change, Patch, Diff } from '../../types';
-
-type DiffMap = Map<Symbol, Change>;
+import { DeepDiffChange, Change, Patch, Diff, DiffMap } from '../../types';
 
 const getType = (patch: Patch): string => (patch.find(change => !!change.path) ? 'object' : typeof patch[0].rhs);
 
@@ -44,7 +42,7 @@ const diffBuilder = (diffmap: DiffMap) => (diff: Diff, change: Change): Diff => 
   return diff;
 };
 
-export default function getDiff(originalPatch: Patch = []): Diff {
+export default function getDiff(originalPatch: Patch = []): { diff: Diff; map: DiffMap } {
   const patch = mapDeepDiffChangeToChange(originalPatch);
   const diffMap: DiffMap = new Map();
   const initialDiff = getInitialDiffByType(getType(patch));
