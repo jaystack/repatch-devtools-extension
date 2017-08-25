@@ -32,7 +32,7 @@ export default function getHtml(diff: Diff, map: DiffMap, breaking: boolean): st
     if (typeof(val) !== 'object') {
       const changeObj = map.get(val);
       htmlData = htmlData.concat(
-        htmlTagger(TAGS.div, htmlTagger(TAGS.strike, changeObj.lhs) + ARROW + changeObj.rhs)
+        htmlTagger(TAGS.div, htmlTagger(TAGS.strike, changeObj.lhs) + ARROW + htmlTagger(TAGS.strong, changeObj.rhs))
       );
     } else {
       function traverse(o) {
