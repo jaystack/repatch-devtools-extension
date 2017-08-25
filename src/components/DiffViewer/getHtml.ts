@@ -27,8 +27,7 @@ export default function getHtml(diff: Diff, map: DiffMap, breaking: boolean): st
   for (const val of Object.values(diff)) {
     if (typeof(val) !== 'object') {
       const changeObj = map.get(val);
-      let change = htmlTagger(TAGS.strike, changeObj.lhs) + ARROW + changeObj.rhs;
-      change = htmlTagger(TAGS.div, change);
+      const change = htmlTagger(TAGS.div, htmlTagger(TAGS.strike, changeObj.lhs) + ARROW + changeObj.rhs);
       htmlData = htmlData.concat(change);
     } else {
       function traverse(o) {
@@ -43,8 +42,7 @@ export default function getHtml(diff: Diff, map: DiffMap, breaking: boolean): st
             const changeVal = typeof changeObj.rhs === 'object' ? htmlTagger(TAGS.pre,
               JSON.stringify(changeObj.rhs)
             ) : changeObj.rhs;
-            let change = htmlTagger(TAGS.strike, changeObj.lhs) + ARROW + changeVal;
-            multilevelData = multilevelData.concat(htmlTagger(TAGS.li, change));
+            multilevelData = multilevelData.concat(htmlTagger(TAGS.li, htmlTagger(TAGS.strike, changeObj.lhs) + ARROW + changeVal));
             htmlData = htmlData.concat(htmlTagger(TAGS.ul, multilevelData));
             multilevelData = '';
           }
