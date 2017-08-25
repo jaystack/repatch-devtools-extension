@@ -27,8 +27,9 @@ export default function getHtml(diff: Diff, map: DiffMap, breaking: boolean): st
   for (const val of Object.values(diff)) {
     if (typeof(val) !== 'object') {
       const changeObj = map.get(val);
-      const change = htmlTagger(TAGS.div, htmlTagger(TAGS.strike, changeObj.lhs) + ARROW + changeObj.rhs);
-      htmlData = htmlData.concat(change);
+      htmlData = htmlData.concat(
+        htmlTagger(TAGS.div, htmlTagger(TAGS.strike, changeObj.lhs) + ARROW + changeObj.rhs)
+      );
     } else {
       function traverse(o) {
         for (const item of Object.values(o)) {
@@ -39,10 +40,12 @@ export default function getHtml(diff: Diff, map: DiffMap, breaking: boolean): st
             changeObj.path.map((elm) => {
               return !!elm ? multilevelData = multilevelData.concat(htmlTagger(TAGS.li, elm)) : '';
             });
-            const changeVal = typeof changeObj.rhs === 'object' ? htmlTagger(TAGS.pre,
-              JSON.stringify(changeObj.rhs)
-            ) : changeObj.rhs;
-            multilevelData = multilevelData.concat(htmlTagger(TAGS.li, htmlTagger(TAGS.strike, changeObj.lhs) + ARROW + changeVal));
+            const changeVal = typeof changeObj.rhs === 'object'
+              ? htmlTagger(TAGS.pre, JSON.stringify(changeObj.rhs))
+              : changeObj.rhs;
+            multilevelData = multilevelData.concat(
+              htmlTagger(TAGS.li, htmlTagger(TAGS.strike, changeObj.lhs) + ARROW + changeVal)
+            );
             htmlData = htmlData.concat(htmlTagger(TAGS.ul, multilevelData));
             multilevelData = '';
           }
