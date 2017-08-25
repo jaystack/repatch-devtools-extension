@@ -36,6 +36,7 @@ export default function getHtml(diff: Diff, map: DiffMap, breaking: boolean): st
           if (!!item && typeof(item) === 'object') {
             traverse(item);
           } else {
+            multilevelData = '';
             const changeObj = map.get(item);
             changeObj.path.map((elm) => {
               return !!elm ? multilevelData = multilevelData.concat(htmlTagger(TAGS.li, elm)) : '';
@@ -47,7 +48,6 @@ export default function getHtml(diff: Diff, map: DiffMap, breaking: boolean): st
               htmlTagger(TAGS.li, htmlTagger(TAGS.strike, changeObj.lhs) + ARROW + changeVal)
             );
             htmlData = htmlData.concat(htmlTagger(TAGS.ul, multilevelData));
-            multilevelData = '';
           }
         }
       }
