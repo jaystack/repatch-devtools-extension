@@ -10,19 +10,19 @@ export default function getHtml(diff: Diff, map: DiffMap, breaking: boolean): st
   function htmlTagger(tag, data) {
     switch (tag) {
       case TAGS.ul:
-        return `<ul class="${TAGS.ul}">` + data;
+        return `<ul>` + data;
       case TAGS.cul:
         return `</ul>`;
       case TAGS.li:
-        return `<li class="${TAGS.li}">` + data + `</li>`;
+        return `<li>` + data + `</li>`;
       case TAGS.div:
-        return `<div class="${TAGS.div}">` + data + `</div>`;
+        return `<div>` + data + `</div>`;
       case TAGS.strike:
-        return `<span class="${TAGS.strike}"><strike>` + data + `</strike></span>`;
+        return `<span><strike>` + data + `</strike></span>`;
       case TAGS.strong:
-        return `<span class="${TAGS.strong}"><strong>` + data + `</strong></span>`;
+        return `<span><strong>` + data + `</strong></span>`;
       case TAGS.pre:
-        return `<pre class="${TAGS.pre}">` + data + `</pre>`;
+        return `<pre>` + data + `</pre>`;
       default:
         return;
     }
