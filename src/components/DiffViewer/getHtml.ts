@@ -4,12 +4,13 @@ const ARROW = ' => ';
 let htmlData = '';
 
 export default function getHtml(diff: Diff, map: DiffMap, breaking: boolean): string {
+  // console.log(diff, map);
   for (const [ key, val ] of Object.entries(diff)) {
     if (typeof(val) !== 'object') {
       const changeObj = map.get(val);
       htmlData = htmlData.concat(`<ul><li>${key}: <strike>${changeObj.lhs}</strike>${ARROW}<strong>${changeObj.rhs}</strong></li></ul>`);
     } else {
-      htmlData = htmlData.concat('<ul><li>' + key + '</li>');
+      htmlData = htmlData.concat('<ul><li>' + key + ' {</li>');
       traverse(val, diff, map);
     }
   }
@@ -24,12 +25,10 @@ function traverse(o, diff, map) {
     for (const [ key, item ] of Object.entries(o)) {
       if (typeof item !== 'object') {
         const changeObj = map.get(item);
-        htmlData = htmlData.concat('<li>' + key + ': ' + getValue(changeObj) + '</li>');
-        htmlData = htmlData.concat('</ul>');
+        htmlData = htmlData.concat('<li>' + key + ': ' + getValue(changeObj) + '</li></ul>');
       } else {
         htmlData = htmlData.concat('<li>' + key + ' {</li>');
         traverse(item, diff, map);
-        htmlData = htmlData.concat('} </ul>');
       }
     }
 
@@ -41,11 +40,12 @@ function traverse(o, diff, map) {
         const changeObj = map.get(item);
         htmlData = htmlData.concat('<ul><li>' + key + ': ' + getValue(changeObj) + '</li></ul>');
       } else {
+        htmlData = htmlData.concat('<ul><li>' + key + ' { </li>');
         traverse(item, diff, map);
       }
     }
-    htmlData = htmlData.concat('} </ul>');
   }
+  htmlData = htmlData.concat('} </ul>');
 }
 
 function getValue(changeObj) {
