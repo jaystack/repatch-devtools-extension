@@ -1,7 +1,33 @@
-h1 {
+.hidden-ul {
+  display: none;
+}
+
+.oldValue {
   color: red;
 }
 
-.hidden-ul {
-  display: none;
+.newValue {
+  color: green;
+}
+
+ul {
+  list-style: none;
+  line-height: 15px;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+li:hover {
+  background-color: aliceblue;
+}
+li:hover {
+  font-weight: bold;
+}
+li:hover ul {
+  background-color: white;
+  font-weight: normal;
+}
+
+.toggle {
+  cursor: pointer;
 }

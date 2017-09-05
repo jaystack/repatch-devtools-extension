@@ -3,7 +3,6 @@ import * as ReactDOM from "react-dom";
 import DeepDiff from 'deep-diff';
 import getDiff from './components/DiffViewer/getDiff';
 import getHtml from './components/DiffViewer/getHtml';
-import {ToggleUl} from './components';
 
 const { lhs, rhs } = require('../static/mocks/data');
 
