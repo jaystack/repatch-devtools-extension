@@ -2,14 +2,14 @@
   "name": "repatch-devtools-extension",
   "version": "0.0.1",
   "description": "Chrome extension for repatch-devtools",
-  "main": "lib/index",
-  "typings": "lib/index",
+  "main": "dist/index",
+  "typings": "dist/index",
   "scripts": {
-    "build": "rimraf lib && tsc -p src --outDir lib",
-    "build:w": "tsc -p src --outDir lib -w",
+    "build": "webpack",
+    "build:w": "webpack --progress --colors --watch",
     "pretest": "npm run build",
-    "test": "mocha lib/**/*.spec.js -c",
-    "start": "node ."
+    "test": "rimraf lib && tsc -p ./ --outDir lib && mocha lib/**/*.spec.js -c",
+    "start": "index.html"
   },
   "repository": {
     "type": "git",

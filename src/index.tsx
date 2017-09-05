@@ -12,19 +12,12 @@ function buildHtml(lhs, rhs) {
     const breaking = false;
     const {diff, map} = getDiff(patch);
     return getHtml(diff, map, breaking);
-
 }
-
-// export default ({patch: patch, breaking: breaking}) => {
-//   const { diff, map } = getDiff(patch);
-//     const __html = getHtml(diff, map, breaking);
-//     return <pre dangerouslySetInnerHTML={{__html}}/>;
-// };
 
 export const App: React.StatelessComponent<{}> = () => {
     return (
         <div className="container-fluid">
-            <ToggleUl diff={buildHtml(lhs, rhs)}/>
+            {buildHtml(lhs, rhs)}
         </div>
     );
 };
