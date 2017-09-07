@@ -72,7 +72,9 @@ module.exports.lhs = {
     desc: "old data",
     desc3: [{a: {b: {c: 2}}}, "few"]
   },
-  desc4: [{a: {b: {c: 2}}}, "few"]
+  desc8: '1234567',
+  desc4: [{a: {b: {c: 2}}}, "few"],
+  desc9: [{a: {b: {c: 2}}}, "few"]
 };
 
 module.exports.rhs = {
@@ -84,8 +86,9 @@ module.exports.rhs = {
     an: "array",
     with: [{a: {b: {c: 2}}}, "few", "more", "elements", {than: "before"}],
     desc: "new data!",
-    desc3: [{a: {b: {c: 2}}}, "few", "more", "elements", {than: "before"}]
+    desc3: [{a: {b: {c: 2}}}, "few", "more", "elements", {than: {before: "before", after: "something"}}]
   },
-  desc4: [{s: {d: {f: 7}}}, "123", "asd", "blabla", {new: "obj", newest: {a: {b: {c: 2}}}}, "few"]
+  desc4: [{s: {d: {f: 7}}}, "123", "asd", "blabla", {new: "obj", newest: {a: {b: {c: 2}}}}],
+  desc9: [{a: {b: {c: 2}}}]
 };
 

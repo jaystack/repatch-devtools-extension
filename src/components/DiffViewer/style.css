@@ -2,8 +2,17 @@
   display: none;
 }
 
+.closed-ul {
+  padding-left: 22px;
+}
+
+.closed-div {
+  padding-bottom: 20px;
+}
+
 .oldValue {
   color: red;
+  text-decoration: line-through;
 }
 
 .newValue {
@@ -12,22 +21,22 @@
 
 ul {
   list-style: none;
-  line-height: 15px;
+  line-height: 16px;
   font-size: 1em;
   cursor: pointer;
 }
 
-li:hover {
-  background-color: aliceblue;
-}
-li:hover {
-  font-weight: bold;
-}
-li:hover ul {
-  background-color: white;
-  font-weight: normal;
-}
+/*li:hover {*/
+  /*background-color: aliceblue;*/
+/*}*/
+
+/*li:hover ul {*/
+  /*background-color: white;*/
+  /*font-weight: normal;*/
+/*}*/
 
 .toggle {
   cursor: pointer;
+  position: relative;
+  top: 16px;
 }

@@ -2,6 +2,10 @@ import React = require('react');
 import {Change, Diff, DiffMap} from '../../types';
 import {ToggleUl} from './toggleUl';
 
+const setValue = (value: string, style: string) => <span><span className={style}>{value}</span></span>;
+const openBrace = (value, diffMap) => (typeof value === 'object') || (typeof value === 'symbol' && typeof diffMap.get(value).rhs === 'object') ? '{' : '';
+const closeBrace = (value, diffMap) => (typeof value === 'object') || (typeof value === 'symbol' && typeof diffMap.get(value).rhs === 'object') ? '}' : '';
+
 export default function getHtml(diff: Diff, map: DiffMap, breaking: boolean): string[] {
     return renderChange(diff, map);
 }
@@ -10,16 +14,17 @@ function renderChange(change: Change, diffMap: DiffMap): any {
     switch (change.kind) {
         case 'N':
             return typeof change.rhs !== 'object'
-                ? <span className="newValue">{change.rhs}</span>
-                : render(change, diffMap);
+                ? setValue(change.rhs, 'newValue')
+                : setValue(render(change, diffMap), 'newValue');
         case 'E':
             return typeof change.lhs !== 'object' && change.rhs !== 'object'
-                ? <span><span className="oldValue">{change.lhs}</span>=><span className="newValue">{change.rhs}</span></span>
-                : render(change, diffMap);
-        case 'D':
+                ? <span>{setValue(change.lhs, 'oldValue')} => {setValue(change.rhs, 'newValue')}</span>
+                : setValue(render(change, diffMap), 'oldValue');
+        case 'D': {
             return typeof change.lhs !== 'object'
-                ? <span><span className="oldValue">{change.lhs}</span></span>
-                : render(change, diffMap);
+                ? setValue(change.lhs, 'oldValue')
+                : setValue(render(change, diffMap), 'oldValue');
+        }
         default:
             return render(change, diffMap);
     }
@@ -28,19 +33,21 @@ function renderChange(change: Change, diffMap: DiffMap): any {
 function render(value: any, diffMap: DiffMap): any {
     switch (typeof value) {
         case 'boolean':
-            return <span className="newValue">{value.toString()}</span>;
+            return value.toString();
         case 'number':
-            return <span className="newValue">{value.toString()}</span>;
-        case 'string':
-            return <span className="newValue">{value}</span>;
+            return value.toString();
+        case 'string': {
+            return value;
+        }
         case 'object':
             return (
                 Object.entries(value).map(([key, value]) => {
                     if (key !== 'path' && key !== 'kind') {
-                        console.log("key", key);
-                        return  key !== 'lhs' && key !== 'rhs'
-                            ? (<ToggleUl key={key.toString()}><li key={key.toString()}>{key}: &#123; {render(value, diffMap)} &#125;</li></ToggleUl>)
-                            : render(value, diffMap);
+                        return (key === 'lhs' || key === 'rhs')
+                            ? render(value, diffMap)
+                            : (<ToggleUl key={key.toString()}>
+                                <li key={key.toString()}>{render(key, diffMap)}: {openBrace(value, diffMap)} {render(value, diffMap)} {closeBrace(value, diffMap)} </li>
+                            </ToggleUl>);
                     } else {
                         return '';
                     }
