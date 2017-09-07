@@ -2,10 +2,6 @@
   display: none;
 }
 
-.closed-ul {
-  padding-left: 22px;
-}
-
 .closed-div {
   padding-bottom: 20px;
 }
@@ -26,17 +22,9 @@ ul {
   cursor: pointer;
 }
 
-/*li:hover {*/
-  /*background-color: aliceblue;*/
-/*}*/
-
-/*li:hover ul {*/
-  /*background-color: white;*/
-  /*font-weight: normal;*/
-/*}*/
-
 .toggle {
   cursor: pointer;
   position: relative;
   top: 16px;
+  left: 20px;
 }

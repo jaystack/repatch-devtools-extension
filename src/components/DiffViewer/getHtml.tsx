@@ -1,10 +1,11 @@
 import React = require('react');
 import {Change, Diff, DiffMap} from '../../types';
 import {ToggleUl} from './toggleUl';
+import {OLD_VALUE, NEW_VALUE, OPEN_TAG, CLOSE_TAG} from './constants';
 
 const setValue = (value: string, style: string) => <span><span className={style}>{value}</span></span>;
-const openBrace = (value, diffMap) => (typeof value === 'object') || (typeof value === 'symbol' && typeof diffMap.get(value).rhs === 'object') ? '{' : '';
-const closeBrace = (value, diffMap) => (typeof value === 'object') || (typeof value === 'symbol' && typeof diffMap.get(value).rhs === 'object') ? '}' : '';
+const openBrace = (value, diffMap) => (typeof value === 'object') || (typeof value === 'symbol' && typeof diffMap.get(value).rhs === 'object') ? OPEN_TAG : '';
+const closeBrace = (value, diffMap) => (typeof value === 'object') || (typeof value === 'symbol' && typeof diffMap.get(value).rhs === 'object') ? CLOSE_TAG : '';
 
 export default function getHtml(diff: Diff, map: DiffMap, breaking: boolean): string[] {
     return renderChange(diff, map);
@@ -14,16 +15,16 @@ function renderChange(change: Change, diffMap: DiffMap): any {
     switch (change.kind) {
         case 'N':
             return typeof change.rhs !== 'object'
-                ? setValue(change.rhs, 'newValue')
-                : setValue(render(change, diffMap), 'newValue');
+                ? setValue(change.rhs, NEW_VALUE)
+                : setValue(render(change, diffMap), NEW_VALUE);
         case 'E':
             return typeof change.lhs !== 'object' && change.rhs !== 'object'
-                ? <span>{setValue(change.lhs, 'oldValue')} => {setValue(change.rhs, 'newValue')}</span>
-                : setValue(render(change, diffMap), 'oldValue');
+                ? <span>{setValue(change.lhs, OLD_VALUE)} => {setValue(change.rhs, NEW_VALUE)}</span>
+                : setValue(render(change, diffMap), OLD_VALUE);
         case 'D': {
             return typeof change.lhs !== 'object'
-                ? setValue(change.lhs, 'oldValue')
-                : setValue(render(change, diffMap), 'oldValue');
+                ? setValue(change.lhs, OLD_VALUE)
+                : setValue(render(change, diffMap), OLD_VALUE);
         }
         default:
             return render(change, diffMap);
