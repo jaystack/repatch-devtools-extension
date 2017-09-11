@@ -1,9 +1,22 @@
+.container-fluid {
+  font-family: monaco, Consolas, "Lucida Console", monospace;
+  font-size: 14px;
+  font-style: normal;
+  font-variant: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
 .hidden-ul {
   display: none;
 }
 
 .closed-div {
   padding-bottom: 20px;
+}
+
+.opened-div {
+  background-color: beige;
 }
 
 .oldValue {
@@ -20,6 +33,7 @@ ul {
   line-height: 16px;
   font-size: 1em;
   cursor: pointer;
+  background-color: aliceblue;
 }
 
 .toggle {
